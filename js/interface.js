@@ -1,6 +1,7 @@
 ﻿( function($) {
   'use strict';
-  	
+
+    emailjs.init("eBMFVgUwZhQ21rMJu");
 
   	/* Window Load */
 	$(window).on('load',function(){
@@ -116,7 +117,7 @@
 	});
 
     /* Send form */
-	if ($('.js-ajax-form').length) {
+	/*if ($('.js-ajax-form').length) {
 		$('.js-ajax-form').each(function(){
 			$(this).validate({
 				errorClass: 'error',
@@ -149,7 +150,25 @@
 			    }
 			});
 		});
-	}
+	}*/
 
 
 })(jQuery);
+
+function sendEmail() {
+    let emailCliente = $('#email').val();
+    let nombre = $('#fullname').val();
+    let mensaje = $('#message').val();
+    emailjs.send('service_hbfg7co' ,'template_frl0qba', {
+        to_name: "Contacto Zamtos Tech",
+        interested_email: emailCliente,
+        from_name: nombre,
+        message: mensaje
+    }).then(function(res) {
+        if(res.status == 200) {
+            $('#success-message').show();
+        } else {
+            $('#error-message').show();
+        }
+    });
+}
